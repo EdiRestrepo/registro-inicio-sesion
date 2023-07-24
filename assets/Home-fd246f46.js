@@ -1,0 +1,1 @@
+import{j as e}from"./index-fb9e6e98.js";const n=()=>e.jsx("div",{style:{height:"calc(100vh - 50px)",display:"flex",justifyContent:"center",alignItems:"center",flexDirection:"column"},children:e.jsx("h1",{children:"Home"})});export{n as default};
