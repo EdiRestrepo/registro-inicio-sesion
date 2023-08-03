@@ -1,6 +1,16 @@
-import { NavLink } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { NavLink, useNavigate } from "react-router-dom";
+import { userLogout } from "../../redux/auth/slice";
 
 const NavBar = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { isLoggedIn } = useSelector(state => state.auth);
+
+  const handleLogout = () => {
+    dispatch(userLogout());
+    navigate("/");
+  }
   return (
     <header
       style={{
@@ -29,7 +39,7 @@ const NavBar = () => {
           <h2>
             {" "}
             <NavLink
-              to="/"
+              to={isLoggedIn ? "/transactions" : "/"}
               style={{ textDecoration: "none", color: "unset" }}
             >
               My New App
@@ -43,22 +53,30 @@ const NavBar = () => {
             alignItems: "center",
           }}
         >
-          <h3>
-            <NavLink
-              to="/register"
-              style={{ textDecoration: "none", color: "unset" }}
-            >
-              Register
-            </NavLink>
-          </h3>
-          <h3>
-            <NavLink
-              to="/login"
-              style={{ textDecoration: "none", color: "unset" }}
-            >
-              Login
-            </NavLink>
-          </h3>
+          {isLoggedIn ? (
+            <h3 onClick={handleLogout} style={{ cursor: "pointer" }}>
+              Logout
+            </h3>
+          ) : (
+            <>
+              <h3>
+                <NavLink
+                  to="/register"
+                  style={{ textDecoration: "none", color: "unset" }}
+                >
+                  Register
+                </NavLink>
+              </h3>
+              <h3>
+                <NavLink
+                  to="/login"
+                  style={{ textDecoration: "none", color: "unset" }}
+                >
+                  Login
+                </NavLink>
+              </h3>
+            </>
+          )}
         </div>
       </nav>
     </header>

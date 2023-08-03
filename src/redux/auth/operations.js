@@ -46,3 +46,27 @@ export const login = createAsyncThunk(
     }
   }
 );
+
+export const refreshUser = createAsyncThunk(
+  "auth/refreshUser",
+  async (token, thunkAPI) => {
+    try {
+         const response = await fetch(`${VITE_SERVER_URL}/account`, {
+           headers: {
+             "content-type": "application/json",
+             Autorization: `Bearer ${token}`
+           },
+         });
+
+         const data = response.json();
+         if (!response.ok) {
+           throw new Error(data.message);
+         }
+         return data;
+      
+    } catch (e) {
+      thunkAPI.rejectWithValue(e.message);
+    }
+  }
+
+);

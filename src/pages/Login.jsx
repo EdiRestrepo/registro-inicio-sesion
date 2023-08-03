@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 
 const Login = () => {
   const dispatch = useDispatch();
-  const { formError, error } = useSelector((state) => state.auth);
+  const { formError, error, isLoading } = useSelector((state) => state.auth);
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -70,8 +70,8 @@ const Login = () => {
           Password <i style={{ fontSize: 12 }}>(5 -12 chars)</i>
           <input type="password" name="password" />
         </label>
-        <button type="submit" style={{ marginTop: 20 }}>
-          send
+        <button type="submit" style={{ marginTop: 20 }} disabled={isLoading}>
+          {isLoading ? "Loading..." : "Send"}
         </button>
       </form>
     </div>
